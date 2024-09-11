@@ -1,23 +1,24 @@
-import { BrowserRouter, Route, Routes, NavLink } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Payroll from "./Payroll";
-import logo from "./assets/logo.png";
+
+import { ROUTES } from "./routes";
+import Sidebar from "./components/Sidebar/Sidebar";
 
 export default function App() {
   return (
     <BrowserRouter>
-      <nav>
-        <div className="logo-container">
-          <img src={logo} alt="logo" />
+      <div className="flex min-h-screen">
+        <div className="flex h-100 bg-white w-1/6">
+          <Sidebar />
         </div>
-        <div>
-          <NavLink to="/payroll">Payroll</NavLink>
+        <div className="flex w-5/6 bg-gray-100">
+          <main>
+            <Routes>
+              <Route path={ROUTES.Payroll} element={<Payroll />} />
+            </Routes>
+          </main>
         </div>
-      </nav>
-      <main>
-        <Routes>
-          <Route path="/payroll" element={<Payroll />} />
-        </Routes>
-      </main>
+      </div>
     </BrowserRouter>
   );
 }
