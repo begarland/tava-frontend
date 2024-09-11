@@ -1,8 +1,7 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Payroll from "./Payroll";
+import { BrowserRouter } from "react-router-dom";
 
-import { ROUTES } from "./routes";
 import Sidebar from "./components/Sidebar/Sidebar";
+import MainContent from "./components/MainContent/MainContent";
 
 export default function App() {
   return (
@@ -12,11 +11,7 @@ export default function App() {
           <Sidebar />
         </div>
         <div className="flex w-5/6 bg-gray-100">
-          <main>
-            <Routes>
-              <Route path={ROUTES.Payroll} element={<Payroll />} />
-            </Routes>
-          </main>
+          <MainContent />
         </div>
       </div>
     </BrowserRouter>
