@@ -1,8 +1,13 @@
 import { useForm, SubmitHandler } from "react-hook-form";
 
+type Department = "Management";
+
 type Inputs = {
-  example: string;
-  exampleRequired: string;
+  firstName: string;
+  lastName: string;
+  startDate: Date;
+  department: Department;
+  quote: string;
 };
 
 const EmployeeForm = () => {
@@ -14,20 +19,44 @@ const EmployeeForm = () => {
   } = useForm<Inputs>();
   const onSubmit: SubmitHandler<Inputs> = (data) => console.log(data);
 
-  console.log(watch("example")); // watch input value by passing the name of it
+  console.log(watch("firstName")); // watch input value by passing the name of it
 
   return (
-    /* "handleSubmit" will validate your inputs before invoking "onSubmit" */
     <form onSubmit={handleSubmit(onSubmit)}>
-      {/* register your input into the hook by invoking the "register" function */}
-      <input defaultValue="test" {...register("example")} />
+      <div className="flex flex-col gap-3 p-5 w-[500px] shadow-md">
+        <div className=" flex flex-col">
+          <label>First Name</label>
+          <input {...register("firstName", { required: true })} />
+          {errors.firstName && <span>This field is required</span>}
+        </div>
+        <div className=" flex flex-col">
+          <label>Last Name</label>
+          <input {...register("lastName", { required: true })} />
+          {errors.lastName && <span>This field is required</span>}
+        </div>
 
-      {/* include validation with required or other standard HTML validation rules */}
-      <input {...register("exampleRequired", { required: true })} />
-      {/* errors will return when field validation fails  */}
-      {errors.exampleRequired && <span>This field is required</span>}
+        <div className=" flex flex-col">
+          <label>Start Date</label>
+          <input type="date" {...register("startDate", { required: true })} />
+          {errors.startDate && <span>This field is required</span>}
+        </div>
 
-      <input type="submit" />
+        <div className=" flex flex-col">
+          <label>Department</label>
+          <select {...register("department", { required: true })}>
+            <option>1</option>
+            <option>2</option>
+            <option>3</option>
+          </select>
+          {errors.department && <span>This field is required</span>}
+        </div>
+
+        <div className=" flex flex-col">
+          <label>Quote</label>
+          <textarea {...register("quote", { required: true })} />
+          {errors.quote && <span>This field is required</span>}
+        </div>
+      </div>
     </form>
   );
 };
