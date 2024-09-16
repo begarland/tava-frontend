@@ -16,6 +16,7 @@ const Required = () => (
 
 const inputStyle =
   "border border-1 border-gray-300 active:border-red-700 active:border-2 rounded text-base";
+const labelStyle = "text-gray-700";
 const DEPTS = ["Engineering", "Management", "Operations", "Food Services"];
 
 const EmployeeForm = () => {
@@ -33,9 +34,9 @@ const EmployeeForm = () => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <div className="flex flex-col gap-3 p-5 w-[500px] shadow-md bg-white">
+      <div className="flex flex-col gap-3 p-5 w-[500px] shadow-md bg-white rounded">
         <div className="flex flex-col">
-          <label>First Name</label>
+          <label className={labelStyle}>First Name</label>
           <input
             className={inputStyle}
             {...register("firstName", { required: true })}
@@ -43,7 +44,7 @@ const EmployeeForm = () => {
           {errors.firstName && <Required />}
         </div>
         <div className="flex flex-col">
-          <label>Last Name</label>
+          <label className={labelStyle}>Last Name</label>
           <input
             className={inputStyle}
             {...register("lastName", { required: true })}
@@ -52,7 +53,7 @@ const EmployeeForm = () => {
         </div>
 
         <div className="flex flex-col">
-          <label>Start Date</label>
+          <label className={labelStyle}>Start Date</label>
           <input
             className={inputStyle}
             type="date"
@@ -62,20 +63,22 @@ const EmployeeForm = () => {
         </div>
 
         <div className="flex flex-col">
-          <label>Department</label>
+          <label className={labelStyle}>Department</label>
           <select
             className={inputStyle}
             {...register("department", { required: true })}
           >
             {DEPTS.map((dept) => (
-              <option value={dept}>{dept}</option>
+              <option key={dept} value={dept}>
+                {dept}
+              </option>
             ))}
           </select>
           {errors.department && <Required />}
         </div>
 
         <div className="flex flex-col">
-          <label>Quote</label>
+          <label className={labelStyle}>Quote</label>
           <textarea
             className={inputStyle}
             {...register("quote", { required: true })}
