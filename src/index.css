@@ -1,3 +1,10 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.ag-theme-quartz {
+  --ag-row-hover-color: #fffe98;
+  --ag-background-color: ;
+  /* Changes the header color of the top row */
+  /* --ag-header-background-color: rgb(228, 237, 250); */
+}

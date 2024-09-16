@@ -4,17 +4,11 @@ import { AgGridReact } from "ag-grid-react"; // React Data Grid Component
 import "ag-grid-community/styles/ag-grid.css"; // Mandatory CSS required by the Data Grid
 import "ag-grid-community/styles/ag-theme-quartz.css"; // Optional Theme applied to the Data Grid
 import { format } from "date-fns";
+import { useNavigate } from "react-router-dom";
+import { ROUTES } from "../../routes";
 
 type OwnProps = {
   employees: Employee[];
-};
-
-const formatDataForTable = (employees: Employee[]) => {
-  return employees.map((employee) => {
-    return {
-      ...employee,
-    };
-  });
 };
 
 const StatusBadge = (status: string) => {
@@ -34,7 +28,9 @@ const StatusBadge = (status: string) => {
 };
 
 const EmployeeTable: React.FC<OwnProps> = ({ employees }) => {
-  const [rowData, setRowData] = useState(formatDataForTable(employees));
+  const [rowData, setRowData] = useState(employees);
+
+  const navigate = useNavigate();
 
   console.log(rowData);
 
@@ -66,6 +62,7 @@ const EmployeeTable: React.FC<OwnProps> = ({ employees }) => {
         rowData={rowData}
         columnDefs={colDefs as never}
         rowSelection={"multiple"}
+        onCellClicked={(p) => navigate(`${ROUTES.Employees}/${p?.data?.id}`)}
       />
     </div>
   );

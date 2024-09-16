@@ -8,7 +8,7 @@ const Sidebar = () => {
 
   return (
     <>
-      <nav>
+      <nav className="fixed w-1/6">
         <div className="flex w-100 h-100 p-12">
           <img src={logo} alt="logo" />
         </div>
