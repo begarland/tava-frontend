@@ -25,7 +25,7 @@ const Sidebar = () => {
           </NavLink>
           <NavLink
             className={`p-4 ps-8 rounded ${
-              pathname === ROUTES.Employees
+              pathname.includes(ROUTES.Employees)
                 ? "bg-red-700 text-white font-bold"
                 : ""
             } `}

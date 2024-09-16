@@ -28,14 +28,11 @@ const StatusBadge = (status: string) => {
 };
 
 const EmployeeTable: React.FC<OwnProps> = ({ employees }) => {
-  const [rowData, setRowData] = useState(employees);
+  const [rowData] = useState(employees);
 
   const navigate = useNavigate();
-
-  console.log(rowData);
-
   // Column Definitions: Defines the columns to be displayed.
-  const [colDefs, setColDefs] = useState([
+  const [colDefs] = useState([
     {
       headerName: "Name",
       valueGetter: (p: { data: Employee }) =>

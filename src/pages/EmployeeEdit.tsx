@@ -2,17 +2,11 @@ import { useLocation } from "react-router-dom";
 import EmployeeForm from "../components/EmployeeForm/EmployeeForm";
 
 const EmployeeEdit = () => {
-  const { pathname } = useLocation();
-
-  // get data for employee X from server
-  // display in form
-
-  console.log(pathname);
-
   return (
-    <>
+    <div className="p-8">
+      <h1 className="">Edit Employee</h1>
       <EmployeeForm />
-    </>
+    </div>
   );
 };
 
