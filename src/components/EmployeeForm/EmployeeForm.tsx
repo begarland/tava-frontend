@@ -1,12 +1,13 @@
 import { useForm, SubmitHandler } from "react-hook-form";
-
-type Department = "Management";
+import { useNavigate } from "react-router-dom";
+import { ROUTES } from "../../routes";
+import { Employee } from "../../types";
 
 type Inputs = {
   firstName: string;
   lastName: string;
-  startDate: Date;
-  department: Department;
+  dateStarted: string;
+  department: string;
   quote: string;
 };
 
@@ -15,21 +16,27 @@ const Required = () => (
 );
 
 const inputStyle =
-  "border border-1 border-gray-300 active:border-red-700 active:border-2 rounded text-base";
+  "border border-1 border-gray-300 active:border-red-700 active:border-2 rounded text-base text-black";
 const labelStyle = "text-gray-700";
 const DEPTS = ["Engineering", "Management", "Operations", "Food Services"];
 
-const EmployeeForm = () => {
+const EmployeeForm: React.FC<{ defaultValues: Employee | undefined }> = ({
+  defaultValues,
+}) => {
+  // const defaultValues = { firstName: "testfromhere" };
   const {
     register,
     handleSubmit,
     watch,
     formState: { errors },
-  } = useForm<Inputs>();
+  } = useForm<Inputs>({ defaultValues });
   const onSubmit: SubmitHandler<Inputs> = (data) => console.log(data);
+  const navigate = useNavigate();
 
   const save = () => {
     console.log(watch("firstName")); // watch input value by passing the name of it
+    console.log(watch("lastName")); // watch input value by passing the name of it
+    navigate(ROUTES.Employees);
   };
 
   return (
@@ -57,9 +64,9 @@ const EmployeeForm = () => {
           <input
             className={inputStyle}
             type="date"
-            {...register("startDate", { required: true })}
+            {...register("dateStarted", { required: true })}
           />
-          {errors.startDate && <Required />}
+          {errors.dateStarted && <Required />}
         </div>
 
         <div className="flex flex-col">
