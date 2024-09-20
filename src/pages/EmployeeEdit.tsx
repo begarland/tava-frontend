@@ -1,25 +1,29 @@
 import { useLocation } from "react-router-dom";
 import EmployeeForm from "../components/EmployeeForm/EmployeeForm";
-import { data } from "../server/data";
 import { Employee } from "../types";
-
-const fetchEmployee = (id: number) => {
-  return data.find((datum) => datum.id === id);
-};
+import { useGetEmployee } from "../api/getEmployeeById";
+import Spinner from "../components/Spinner/Spinner";
 
 const EmployeeEdit = () => {
   const { pathname } = useLocation();
 
+  const { employee } = useGetEmployee(Number(pathname.split("/")[2]));
+
   let defaultValues: Employee | undefined = {} as Employee;
 
-  if (pathname && Number(pathname.split("/")[2])) {
-    defaultValues = fetchEmployee(Number(pathname.split("/")[2]));
+  if (employee) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    defaultValues = employee as any;
   }
 
   return (
     <div className="p-8">
       <h1 className="text-xl font-bold mb-3">Edit Employee</h1>
-      <EmployeeForm defaultValues={defaultValues} />
+      {defaultValues && Object.keys(defaultValues).length ? (
+        <EmployeeForm defaultValues={defaultValues} />
+      ) : (
+        <Spinner />
+      )}
     </div>
   );
 };

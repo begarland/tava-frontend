@@ -1,16 +1,24 @@
 import EmployeeTable from "../components/EmployeeTable/EmployeeTable";
-import { data } from "../server/data";
+import { useGetEmployees } from "../api/getEmployees";
+import { useNavigate } from "react-router-dom";
 
 const EmployeeList = () => {
-  const employees = data;
-  const departments = new Set<string>();
+  const { employees } = useGetEmployees();
+  const navigate = useNavigate();
 
-  employees.map((employee) => departments.add(employee.department));
-
-  console.log(Array.from(departments));
+  const departments = new Set<string>([]);
+  employees?.map((employee) => departments.add(employee.department));
 
   return (
     <div className="w-[83vw] min-h-screen p-4">
+      <div className="flex w-100 justify-end mb-4">
+        <button
+          className="bg-red-700 text-white font-bold p-3 rounded"
+          onClick={() => navigate("/employees/new")}
+        >
+          New
+        </button>
+      </div>
       {Array.from(departments).map((dept) => {
         return (
           <div
