@@ -61,7 +61,7 @@ const EmployeeTable: React.FC<OwnProps> = ({ employees }) => {
       cellRenderer: (p: { data: Employee }) => (
         <div
           style={{ zIndex: 1000 }}
-          className={"text-red-700 flex justify-start items-center"}
+          className="text-red-700 flex w-full h-full justify-start items-center"
           onClick={() => {
             setOpenDeleteModal(!openDeleteModal);
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -113,7 +113,6 @@ const EmployeeTable: React.FC<OwnProps> = ({ employees }) => {
             setOpenDeleteModal(false);
           }}
           successCallback={() => {
-            // console.log(deleteuser)
             if (deleteModalData?.id) {
               deleteEmployee(deleteModalData?.id);
             }
