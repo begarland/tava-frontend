@@ -8,6 +8,6 @@ const MultiSelect: React.FC<{
   options,
   className,
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-}) => <Select className={className} options={options as any} />;
+}) => <Select className={className} options={options as any} isMulti={true} />;
 
 export default MultiSelect;

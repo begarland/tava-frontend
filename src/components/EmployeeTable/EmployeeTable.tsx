@@ -11,6 +11,7 @@ import { useDeleteEmployee } from "../../api/deleteEmployeeById";
 
 type OwnProps = {
   employees: Employee[];
+  setRefreshEmployees: (val: boolean) => void;
 };
 
 const StatusBadge = (status: string) => {
@@ -29,7 +30,10 @@ const StatusBadge = (status: string) => {
   );
 };
 
-const EmployeeTable: React.FC<OwnProps> = ({ employees }) => {
+const EmployeeTable: React.FC<OwnProps> = ({
+  employees,
+  setRefreshEmployees,
+}) => {
   const [rowData] = useState(employees);
   const [openDeleteModal, setOpenDeleteModal] = useState<boolean>(false);
   const [deleteModalData, setDeleteModalData] = useState<Employee | null>(null);
@@ -55,9 +59,11 @@ const EmployeeTable: React.FC<OwnProps> = ({ employees }) => {
     {
       field: "status",
       cellRenderer: (p: { data: Employee }) => StatusBadge(p.data.status),
+      flex: 1,
     },
     {
       field: "delete",
+      flex: 1,
       cellRenderer: (p: { data: Employee }) => (
         <div
           style={{ zIndex: 1000 }}
@@ -117,6 +123,7 @@ const EmployeeTable: React.FC<OwnProps> = ({ employees }) => {
               deleteEmployee(deleteModalData?.id);
             }
             setOpenDeleteModal(false);
+            setRefreshEmployees(true);
           }}
           successText="Delete"
         />

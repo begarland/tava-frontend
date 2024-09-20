@@ -2,7 +2,7 @@ import { Employee } from "../types";
 
 export const useCreateEmployee = () => {
   const requestOptions = {
-    method: "PATCH",
+    method: "POST",
     redirect: "follow",
   };
 

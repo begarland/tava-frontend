@@ -17,7 +17,7 @@ const Modal: React.FC<OwnProps> = ({
       className="fixed top-0 left-0 flex w-screen h-screen bg-transparent justify-center items-center"
       style={{ zIndex: 2000 }}
     >
-      <div className="w-96 h-96 bg-white dark:bg-gray-950 border border-1 p-4">
+      <div className="w-96 h-96 bg-white dark:bg-gray-950 border-2 p-4">
         <h1 className="text-2xl">{title}</h1>
         <div className="m-8 h-48">
           <p>{message}</p>

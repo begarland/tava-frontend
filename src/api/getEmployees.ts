@@ -2,6 +2,8 @@ import React from "react";
 import { Employee } from "../types";
 
 export const useGetEmployees = () => {
+  const [refreshEmployees, setRefreshEmployees] =
+    React.useState<boolean>(false);
   const [employees, setEmployees] = React.useState<Employee[]>([]);
   const requestOptions = {
     method: "GET",
@@ -26,7 +28,18 @@ export const useGetEmployees = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  React.useEffect(() => {
+    if (refreshEmployees) {
+      getEmployees().then((data) => {
+        setEmployees(JSON.parse(data as string));
+      });
+      setRefreshEmployees(false);
+    } // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [refreshEmployees]);
+
   return {
     employees,
+    refreshEmployees,
+    setRefreshEmployees,
   };
 };

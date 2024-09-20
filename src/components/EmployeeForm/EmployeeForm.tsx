@@ -52,7 +52,6 @@ const EmployeeForm: React.FC<{ defaultValues?: Employee | undefined }> = ({
   const { updateEmployee } = useUpdateEmployee();
 
   const save = () => {
-    console.log("llll");
     if (defaultValues?.id) {
       const vals = getValues();
       updateEmployee(defaultValues?.id, vals as Employee);
