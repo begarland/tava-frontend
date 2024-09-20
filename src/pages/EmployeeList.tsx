@@ -2,7 +2,6 @@
 import { useGetEmployees } from "../api/getEmployees";
 import { useNavigate } from "react-router-dom";
 import React from "react";
-import MultiSelect from "../components/MultiSelect/MultiSelect";
 import Select from "react-select";
 import EmployeeTableHtml from "../components/EmployeeTable/EmployeeTableHtml";
 
@@ -15,26 +14,22 @@ const EmployeeList = () => {
 
   const [filterBy, setFilterBy] = React.useState<string>("");
 
-  const filteredEmployees = employees.filter((employee) => {
-    console.log(
-      JSON.stringify(employee).toLowerCase().includes(filterBy.toLowerCase())
-    );
-    return JSON.stringify(employee)
-      .toLowerCase()
-      .includes(filterBy.toLowerCase());
-  });
+  const [filterDepartment, setFilterDepartment] = React.useState([]);
 
-  console.log(filteredEmployees);
+  const filteredEmployees = employees.filter((employee) =>
+    JSON.stringify(employee).toLowerCase().includes(filterBy.toLowerCase())
+  );
+  // .filter((emp) => filterDepartment.includes(emp.department as never));
 
   return (
     <div className="w-[83vw] min-h-screen p-4">
       <div className="flex w-100 gap-4 mb-4 items-center">
         <input
-          className="text-black w-5/12 rounded p-2"
+          className="text-black w-5/12 rounded p-2 border border-gray-300"
           value={filterBy}
           onChange={(e) => setFilterBy(e.target.value)}
         />
-        <MultiSelect
+        <Select
           className="w-4/12"
           options={
             Array.from(departments).map((dept) => {
@@ -42,6 +37,10 @@ const EmployeeList = () => {
               // eslint-disable-next-line @typescript-eslint/no-explicit-any
             }) as any
           }
+          isMulti={true}
+          value={filterDepartment}
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          onChange={(e) => setFilterDepartment(e as any)}
         />
         <Select
           className="w-2/12"
@@ -89,16 +88,3 @@ const EmployeeList = () => {
 };
 
 export default EmployeeList;
-
-{
-  /* <EmployeeTable
-              employees={filteredEmployees.filter(
-                (emp) => emp.department === dept
-              )}
-              setRefreshEmployees={setRefreshEmployees}
-            /> */
-}
-
-// {filteredEmployees
-//   .filter((emp) => emp.department === dept)
-//   .map((val) => JSON.stringify(val))}

@@ -37,26 +37,31 @@ const EmployeeTableHtml: React.FC<OwnProps> = ({ employees }) => {
     <>
       <div>
         <table className="w-full">
-          <thead className="border-b-2 border-gray-600">
-            <th className="text-gray-600 font-bold text-left p-2 w-1/12">
-              Name
-            </th>
-            <th className="text-gray-600 font-bold text-left p-2 w-1/12">
-              Start Date
-            </th>
-            <th className="text-gray-600 font-bold text-left p-2 w-2/12">
-              Quote
-            </th>
-            <th className="text-gray-600 font-bold text-left p-2 w-1/12">
-              Status
-            </th>
-            <th className="text-gray-600 font-bold text-center p-2 w-1/12">
-              Delete
-            </th>
+          <thead>
+            <tr className="border-b-2 border-gray-600">
+              <th className="text-gray-600 font-bold text-left p-2 w-1/12">
+                Name
+              </th>
+              <th className="text-gray-600 font-bold text-left p-2 w-1/12">
+                Start Date
+              </th>
+              <th className="text-gray-600 font-bold text-left p-2 w-2/12">
+                Quote
+              </th>
+              <th className="text-gray-600 font-bold text-left p-2 w-1/12">
+                Status
+              </th>
+              <th className="text-gray-600 font-bold text-center p-2 w-1/12">
+                Delete
+              </th>
+            </tr>
           </thead>
           <tbody>
             {employees.map((employee) => (
-              <tr className="border border-gray-300 border-b-1 border-t-0 border-s-0 border-e-0 cursor-pointer">
+              <tr
+                className="border border-gray-300 border-b-1 border-t-0 border-s-0 border-e-0 cursor-pointer"
+                key={employee.id}
+              >
                 <td
                   className="p-2"
                   onClick={() => {
