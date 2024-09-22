@@ -20,7 +20,7 @@ export const useGetEmployee = (id: number) => {
 
   React.useEffect(() => {
     getEmployee(id).then((data) => {
-      setEmployee(JSON.parse(data as string));
+      setEmployee(JSON.parse(data as string)[0]);
     });
     // componentDidMount
     // eslint-disable-next-line react-hooks/exhaustive-deps

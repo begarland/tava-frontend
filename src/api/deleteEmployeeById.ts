@@ -1,4 +1,8 @@
+import { useGetEmployees } from "./getEmployees";
+
 export const useDeleteEmployee = () => {
+  const { setRefreshEmployees } = useGetEmployees();
+
   const requestOptions = {
     method: "DELETE",
     redirect: "follow",
@@ -10,7 +14,10 @@ export const useDeleteEmployee = () => {
       requestOptions as RequestInit
     )
       .then((response) => response.text())
-      .then((result) => result)
+      .then((result) => {
+        setRefreshEmployees(true);
+        return result;
+      })
       .catch((error) => console.error(error));
   };
 

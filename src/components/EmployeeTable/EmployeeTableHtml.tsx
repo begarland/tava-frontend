@@ -27,7 +27,10 @@ type OwnProps = {
   setRefreshEmployees: (val: boolean) => void;
 };
 
-const EmployeeTableHtml: React.FC<OwnProps> = ({ employees }) => {
+const EmployeeTableHtml: React.FC<OwnProps> = ({
+  employees,
+  setRefreshEmployees,
+}) => {
   const [openDeleteModal, setOpenDeleteModal] = useState<boolean>(false);
   const [deleteModalData, setDeleteModalData] = useState<Employee | null>(null);
   const { deleteEmployee } = useDeleteEmployee();
@@ -75,10 +78,9 @@ const EmployeeTableHtml: React.FC<OwnProps> = ({ employees }) => {
                   onClick={() => {
                     navigate(`${ROUTES.Employees}/${employee.id}`);
                   }}
-                >{`${format(
-                  new Date(employee.dateStarted),
-                  "MMM do, yyyy"
-                )}`}</td>
+                >
+                  {formatDateStarted(employee)}
+                </td>
                 <td
                   className="p-2"
                   onClick={() => {
@@ -139,7 +141,7 @@ const EmployeeTableHtml: React.FC<OwnProps> = ({ employees }) => {
               deleteEmployee(deleteModalData?.id);
             }
             setOpenDeleteModal(false);
-            // setRefreshEmployees(true);
+            setRefreshEmployees(true);
           }}
           successText="Delete"
         />
@@ -149,3 +151,7 @@ const EmployeeTableHtml: React.FC<OwnProps> = ({ employees }) => {
 };
 
 export default EmployeeTableHtml;
+
+const formatDateStarted = (employee: Employee) => {
+  return `${format(new Date(employee?.dateStarted), "MMM do, yyyy")}`;
+};

@@ -4,10 +4,16 @@ import { useNavigate } from "react-router-dom";
 import React from "react";
 import Select from "react-select";
 import EmployeeTableHtml from "../components/EmployeeTable/EmployeeTableHtml";
+import Spinner from "../components/Spinner/Spinner";
 
 const EmployeeList = () => {
-  const { employees, setRefreshEmployees } = useGetEmployees();
+  const { employees, refreshEmployees, setRefreshEmployees } =
+    useGetEmployees();
   const navigate = useNavigate();
+
+  React.useEffect(() => {
+    console.log("list", employees, employees?.length, refreshEmployees);
+  }, [employees, refreshEmployees]);
 
   const departments = new Set<string>([]);
   employees?.map((employee) => departments.add(employee.department));
@@ -24,18 +30,18 @@ const EmployeeList = () => {
     }[]
   >([]);
 
-  let filteredEmployees = employees.filter((employee) =>
+  let filteredEmployees = [...employees].filter((employee) =>
     JSON.stringify(employee).toLowerCase().includes(filterBy.toLowerCase())
   );
 
   if (filterDepartment.length) {
-    filteredEmployees = filteredEmployees.filter((emp) =>
+    filteredEmployees = [...filteredEmployees].filter((emp) =>
       filterDepartment.map((val) => val?.value).includes(emp.department)
     );
   }
 
   if (filterStatus?.length) {
-    filteredEmployees = filteredEmployees.filter((emp) =>
+    filteredEmployees = [...filteredEmployees].filter((emp) =>
       filterStatus.map((val) => val?.value).includes(emp.status)
     );
   }
@@ -85,28 +91,42 @@ const EmployeeList = () => {
           </button>
         </div>
       </div>
-      {Array.from(departments).map((dept) => {
-        if (filteredEmployees.filter((emp) => emp.department === dept).length) {
-          return (
-            <div
-              className="rounded bg-white dark:bg-gray-950 dark:text-white p-4 mb-8"
-              key={dept}
-            >
-              <h1 className="font-bold text-lg mb-3">{dept}</h1>
-              {
-                <EmployeeTableHtml
-                  employees={filteredEmployees.filter(
-                    (emp) => emp.department === dept
-                  )}
-                  setRefreshEmployees={setRefreshEmployees}
-                />
+
+      <>
+        {refreshEmployees ? (
+          <>
+            <Spinner />
+          </>
+        ) : (
+          <>
+            {Array.from(departments).map((dept) => {
+              if (
+                filteredEmployees.filter((emp) => emp.department === dept)
+                  .length
+              ) {
+                return (
+                  <div
+                    className="rounded bg-white dark:bg-gray-950 dark:text-white p-4 mb-8"
+                    key={dept}
+                  >
+                    <h1 className="font-bold text-lg mb-3">{dept}</h1>
+                    {
+                      <EmployeeTableHtml
+                        employees={filteredEmployees.filter(
+                          (emp) => emp.department === dept
+                        )}
+                        setRefreshEmployees={setRefreshEmployees}
+                      />
+                    }
+                  </div>
+                );
+              } else {
+                return null;
               }
-            </div>
-          );
-        } else {
-          return null;
-        }
-      })}
+            })}
+          </>
+        )}
+      </>
     </div>
   );
 };
