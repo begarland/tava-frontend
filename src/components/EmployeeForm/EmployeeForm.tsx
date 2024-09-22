@@ -11,6 +11,7 @@ type Inputs = {
   lastName: string;
   dateStarted: string;
   department: string;
+  status: string;
   quote: string;
 };
 
@@ -99,6 +100,21 @@ const EmployeeForm: React.FC<{ defaultValues?: Employee | undefined }> = ({
                 {dept}
               </option>
             ))}
+          </select>
+          {errors.department && <Required />}
+        </div>
+
+        <div className="flex flex-col">
+          <label className={labelStyle}>Status</label>
+          <select className={inputStyle} {...register("status")}>
+            <>
+              <option key="active" value="active">
+                active
+              </option>
+              <option key="inactive" value="inactive">
+                inactive
+              </option>
+            </>
           </select>
           {errors.department && <Required />}
         </div>
