@@ -14,12 +14,31 @@ const EmployeeList = () => {
 
   const [filterBy, setFilterBy] = React.useState<string>("");
 
-  const [filterDepartment, setFilterDepartment] = React.useState([]);
+  const [filterDepartment, setFilterDepartment] = React.useState<
+    { value: string; label: string }[]
+  >([]);
+  const [filterStatus, setFilterStatus] = React.useState<
+    {
+      value: string;
+      label: string;
+    }[]
+  >([]);
 
-  const filteredEmployees = employees.filter((employee) =>
+  let filteredEmployees = employees.filter((employee) =>
     JSON.stringify(employee).toLowerCase().includes(filterBy.toLowerCase())
   );
-  // .filter((emp) => filterDepartment.includes(emp.department as never));
+
+  if (filterDepartment.length) {
+    filteredEmployees = filteredEmployees.filter((emp) =>
+      filterDepartment.map((val) => val?.value).includes(emp.department)
+    );
+  }
+
+  if (filterStatus?.length) {
+    filteredEmployees = filteredEmployees.filter((emp) =>
+      filterStatus.map((val) => val?.value).includes(emp.status)
+    );
+  }
 
   return (
     <div className="w-[83vw] min-h-screen p-4">
@@ -44,6 +63,7 @@ const EmployeeList = () => {
         />
         <Select
           className="w-2/12"
+          isMulti={true}
           options={
             [
               { label: "active", value: "active" },
@@ -51,7 +71,11 @@ const EmployeeList = () => {
               // eslint-disable-next-line @typescript-eslint/no-explicit-any
             ] as any
           }
+          value={filterStatus}
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          onChange={(e) => setFilterStatus(e as any)}
         />
+
         <div className="w-1/12 flex justify-end">
           <button
             className="bg-red-700 text-white font-bold p-3 rounded"
