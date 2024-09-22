@@ -10,12 +10,15 @@ import Spinner from "../components/Spinner/Spinner";
 import { Employee } from "../types";
 
 const generateDataForFilterBasedonUI = (employee: Employee) => {
-  const data = {
-    ...employee,
-    name: `${employee.firstName} ${employee.lastName}`,
-    startDate: `${formatDateStarted(employee)}`,
-  };
-  return JSON.stringify(Object.values(data)).toLowerCase();
+  if (employee) {
+    const data = {
+      ...employee,
+      name: `${employee.firstName} ${employee.lastName}`,
+      startDate: `${formatDateStarted(employee)}`,
+    };
+    return JSON.stringify(Object.values(data)).toLowerCase();
+  }
+  return "loading...";
 };
 
 const EmployeeList = () => {
@@ -107,31 +110,33 @@ const EmployeeList = () => {
           </>
         ) : (
           <>
-            {Array.from(departments).map((dept) => {
-              if (
-                filteredEmployees.filter((emp) => emp.department === dept)
-                  .length
-              ) {
-                return (
-                  <div
-                    className="rounded bg-white dark:bg-gray-950 dark:text-white p-4 mb-8"
-                    key={dept}
-                  >
-                    <h1 className="font-bold text-lg mb-3">{dept}</h1>
-                    {
-                      <EmployeeTableHtml
-                        employees={filteredEmployees.filter(
-                          (emp) => emp.department === dept
-                        )}
-                        setRefreshEmployees={setRefreshEmployees}
-                      />
-                    }
-                  </div>
-                );
-              } else {
-                return null;
-              }
-            })}
+            {Array.from(departments)
+              .sort((a, b) => (a > b ? 1 : -1))
+              .map((dept) => {
+                if (
+                  filteredEmployees.filter((emp) => emp.department === dept)
+                    .length
+                ) {
+                  return (
+                    <div
+                      className="rounded bg-white dark:bg-gray-950 dark:text-white p-4 mb-8"
+                      key={dept}
+                    >
+                      <h1 className="font-bold text-lg mb-3">{dept}</h1>
+                      {
+                        <EmployeeTableHtml
+                          employees={filteredEmployees.filter(
+                            (emp) => emp.department === dept
+                          )}
+                          setRefreshEmployees={setRefreshEmployees}
+                        />
+                      }
+                    </div>
+                  );
+                } else {
+                  return null;
+                }
+              })}
           </>
         )}
       </>
