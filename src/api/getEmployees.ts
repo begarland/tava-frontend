@@ -1,9 +1,9 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Employee } from "../types";
+import { AppContext } from "../App";
 
 export const useGetEmployees = () => {
-  const [refreshEmployees, setRefreshEmployees] =
-    React.useState<boolean>(false);
+  const { refreshEmployees, setRefreshEmployees } = useContext(AppContext);
   const [employees, setEmployees] = React.useState<Employee[]>([]);
   const requestOptions = {
     method: "GET",

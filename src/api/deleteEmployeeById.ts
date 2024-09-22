@@ -1,7 +1,8 @@
-import { useGetEmployees } from "./getEmployees";
+import { useContext } from "react";
+import { AppContext } from "../App";
 
 export const useDeleteEmployee = () => {
-  const { setRefreshEmployees } = useGetEmployees();
+  const { setRefreshEmployees } = useContext(AppContext);
 
   const requestOptions = {
     method: "DELETE",

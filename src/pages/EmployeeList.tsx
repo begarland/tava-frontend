@@ -1,13 +1,14 @@
 // import EmployeeTable from "../components/EmployeeTable/EmployeeTable";
 import { useGetEmployees } from "../api/getEmployees";
 import { useNavigate } from "react-router-dom";
-import React from "react";
+import React, { useContext } from "react";
 import Select from "react-select";
 import EmployeeTableHtml, {
   formatDateStarted,
 } from "../components/EmployeeTable/EmployeeTableHtml";
 import Spinner from "../components/Spinner/Spinner";
 import { Employee } from "../types";
+import { AppContext } from "../App";
 
 const generateDataForFilterBasedonUI = (employee: Employee) => {
   if (employee) {
@@ -22,8 +23,10 @@ const generateDataForFilterBasedonUI = (employee: Employee) => {
 };
 
 const EmployeeList = () => {
-  const { employees, refreshEmployees, setRefreshEmployees } =
-    useGetEmployees();
+  const { refreshEmployees, setRefreshEmployees } = useContext(AppContext);
+
+  const { employees } = useGetEmployees();
+
   const navigate = useNavigate();
 
   const departments = new Set<string>([]);
@@ -110,33 +113,41 @@ const EmployeeList = () => {
           </>
         ) : (
           <>
-            {Array.from(departments)
-              .sort((a, b) => (a > b ? 1 : -1))
-              .map((dept) => {
-                if (
-                  filteredEmployees.filter((emp) => emp.department === dept)
-                    .length
-                ) {
-                  return (
-                    <div
-                      className="rounded bg-white dark:bg-gray-950 dark:text-white p-4 mb-8"
-                      key={dept}
-                    >
-                      <h1 className="font-bold text-lg mb-3">{dept}</h1>
-                      {
-                        <EmployeeTableHtml
-                          employees={filteredEmployees.filter(
-                            (emp) => emp.department === dept
-                          )}
-                          setRefreshEmployees={setRefreshEmployees}
-                        />
-                      }
-                    </div>
-                  );
-                } else {
-                  return null;
-                }
-              })}
+            {filteredEmployees.length ? (
+              <>
+                {Array.from(departments)
+                  .sort((a, b) => (a > b ? 1 : -1))
+                  .map((dept) => {
+                    if (
+                      filteredEmployees.filter((emp) => emp.department === dept)
+                        .length
+                    ) {
+                      return (
+                        <div
+                          className="rounded bg-white dark:bg-gray-950 dark:text-white p-4 mb-8"
+                          key={dept}
+                        >
+                          <h1 className="font-bold text-lg mb-3">{dept}</h1>
+                          {
+                            <EmployeeTableHtml
+                              employees={filteredEmployees.filter(
+                                (emp) => emp.department === dept
+                              )}
+                              setRefreshEmployees={setRefreshEmployees}
+                            />
+                          }
+                        </div>
+                      );
+                    } else {
+                      return null;
+                    }
+                  })}
+              </>
+            ) : (
+              <div className="w-100 border border-red-700 text-black h-36 font-bold justify-center items-center flex text-2xl rounded">
+                No data
+              </div>
+            )}
           </>
         )}
       </>
