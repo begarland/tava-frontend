@@ -63,6 +63,10 @@ const EmployeeForm: React.FC<{ defaultValues?: Employee | undefined }> = ({
     navigate(ROUTES.Employees);
   };
 
+  const cancel = () => {
+    navigate(ROUTES.Employees);
+  };
+
   return (
     <form onSubmit={handleSubmit(save)}>
       <div className="flex flex-col gap-3 p-5 w-[500px] shadow-md bg-white rounded">
@@ -125,10 +129,15 @@ const EmployeeForm: React.FC<{ defaultValues?: Employee | undefined }> = ({
           {errors.quote && <Required />}
         </div>
 
-        <div>
+        <div className="flex justify-start gap-3">
           <button
-            className="text-white font-bold bg-red-700 px-5 py-3 rounded"
-            // onClick={save}
+            className="text-red-700 font-bold w-24 border-2 border-red-700 px-5 py-3 rounded cursor-pointer"
+            onClick={cancel}
+          >
+            Cancel
+          </button>
+          <button
+            className="text-white font-bold w-24 bg-red-700 px-5 py-3 rounded cursor-pointer"
             type="submit"
           >
             Save
