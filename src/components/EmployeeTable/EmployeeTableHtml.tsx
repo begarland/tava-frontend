@@ -152,6 +152,6 @@ const EmployeeTableHtml: React.FC<OwnProps> = ({
 
 export default EmployeeTableHtml;
 
-const formatDateStarted = (employee: Employee) => {
+export const formatDateStarted = (employee: Employee) => {
   return `${format(new Date(employee?.dateStarted), "MMM do, yyyy")}`;
 };

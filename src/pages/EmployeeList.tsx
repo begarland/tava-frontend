@@ -3,8 +3,20 @@ import { useGetEmployees } from "../api/getEmployees";
 import { useNavigate } from "react-router-dom";
 import React from "react";
 import Select from "react-select";
-import EmployeeTableHtml from "../components/EmployeeTable/EmployeeTableHtml";
+import EmployeeTableHtml, {
+  formatDateStarted,
+} from "../components/EmployeeTable/EmployeeTableHtml";
 import Spinner from "../components/Spinner/Spinner";
+import { Employee } from "../types";
+
+const generateDataForFilterBasedonUI = (employee: Employee) => {
+  const data = {
+    ...employee,
+    name: `${employee.firstName} ${employee.lastName}`,
+    startDate: `${formatDateStarted(employee)}`,
+  };
+  return JSON.stringify(Object.values(data)).toLowerCase();
+};
 
 const EmployeeList = () => {
   const { employees, refreshEmployees, setRefreshEmployees } =
@@ -27,7 +39,7 @@ const EmployeeList = () => {
   >([]);
 
   let filteredEmployees = [...employees].filter((employee) =>
-    JSON.stringify(employee).toLowerCase().includes(filterBy.toLowerCase())
+    generateDataForFilterBasedonUI(employee).includes(filterBy.toLowerCase())
   );
 
   if (filterDepartment.length) {
