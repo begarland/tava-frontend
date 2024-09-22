@@ -11,10 +11,6 @@ const EmployeeList = () => {
     useGetEmployees();
   const navigate = useNavigate();
 
-  React.useEffect(() => {
-    console.log("list", employees, employees?.length, refreshEmployees);
-  }, [employees, refreshEmployees]);
-
   const departments = new Set<string>([]);
   employees?.map((employee) => departments.add(employee.department));
 

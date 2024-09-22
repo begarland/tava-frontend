@@ -10,8 +10,6 @@ export const useGetEmployees = () => {
     redirect: "follow",
   };
 
-  console.log("data is", employees);
-
   const getEmployees = () => {
     return fetch(
       `${import.meta.env.VITE_BACKEND}/employees`,
@@ -23,7 +21,6 @@ export const useGetEmployees = () => {
   };
 
   React.useEffect(() => {
-    console.log("component did mount useGetEmployees");
     getEmployees().then((data) => {
       setEmployees(JSON.parse(data as string));
     });
@@ -32,7 +29,6 @@ export const useGetEmployees = () => {
   }, []);
 
   React.useEffect(() => {
-    console.log("component did update useGetEmployees", refreshEmployees);
     if (refreshEmployees) {
       getEmployees().then((data) => {
         setEmployees(JSON.parse(data as string));
