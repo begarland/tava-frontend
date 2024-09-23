@@ -2,7 +2,7 @@ import { useContext } from "react";
 import { AppContext } from "../App";
 
 export const useDeleteEmployee = () => {
-  const { setRefreshEmployees } = useContext(AppContext);
+  const { setRefreshEmployees, setError } = useContext(AppContext);
 
   const requestOptions = {
     method: "DELETE",
@@ -19,7 +19,10 @@ export const useDeleteEmployee = () => {
         setRefreshEmployees(true);
         return result;
       })
-      .catch((error) => console.error(error));
+      .catch((error) => {
+        console.error(error);
+        setError("An error has occurred deleting employee. Try again later.");
+      });
   };
 
   return {

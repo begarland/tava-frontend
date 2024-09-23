@@ -3,7 +3,8 @@ import { Employee } from "../types";
 import { AppContext } from "../App";
 
 export const useGetEmployees = () => {
-  const { refreshEmployees, setRefreshEmployees } = useContext(AppContext);
+  const { refreshEmployees, setRefreshEmployees, setError } =
+    useContext(AppContext);
   const [employees, setEmployees] = React.useState<Employee[]>([]);
   const requestOptions = {
     method: "GET",
@@ -17,7 +18,11 @@ export const useGetEmployees = () => {
     )
       .then((response) => response.text())
       .then((result) => result)
-      .catch((error) => console.error(error));
+      .catch((error) => {
+        setRefreshEmployees(false);
+        console.error(error);
+        setError("An error has occurred fetching employees. Try again later.");
+      });
   };
 
   React.useEffect(() => {

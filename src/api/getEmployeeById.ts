@@ -1,7 +1,10 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Employee } from "../types";
+import { AppContext } from "../App";
 
 export const useGetEmployee = (id: number) => {
+  const { setError } = useContext(AppContext);
+
   const [employee, setEmployee] = React.useState<Employee | undefined>();
   const requestOptions = {
     method: "GET",
@@ -15,7 +18,10 @@ export const useGetEmployee = (id: number) => {
     )
       .then((response) => response.text())
       .then((result) => result)
-      .catch((error) => console.error(error));
+      .catch((error) => {
+        console.error(error);
+        setError("An error has occurred creating employee. Try again later.");
+      });
   };
 
   React.useEffect(() => {

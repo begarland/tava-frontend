@@ -144,7 +144,7 @@ const EmployeeList = () => {
                   })}
               </>
             ) : (
-              <div className="w-100 border border-red-700 text-black h-36 font-bold justify-center items-center flex text-2xl rounded">
+              <div className="w-100 border border-red-700 h-36 font-bold justify-center items-center flex text-2xl rounded">
                 No data
               </div>
             )}
