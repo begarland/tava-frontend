@@ -69,7 +69,7 @@ const EmployeeForm: React.FC<{ defaultValues?: Employee | undefined }> = ({
 
   return (
     <form onSubmit={handleSubmit(save)}>
-      <div className="flex flex-col gap-3 p-5 w-[500px] shadow-md bg-white dark:bg-gray-950 rounded">
+      <div className="flex flex-col gap-3 p-5 w-full sm:w-[500px] shadow-md bg-white dark:bg-gray-950 rounded">
         <div className="flex flex-col">
           <label className={labelStyle}>First Name</label>
           <input

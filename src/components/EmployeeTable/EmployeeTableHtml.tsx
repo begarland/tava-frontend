@@ -38,7 +38,7 @@ const EmployeeTableHtml: React.FC<OwnProps> = ({
 
   return (
     <>
-      <div>
+      <div className="w-12/12 overflow-scroll">
         <table className="w-full">
           <thead>
             <tr className="border-b-2 border-gray-600">

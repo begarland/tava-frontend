@@ -61,15 +61,15 @@ const EmployeeList = () => {
   }
 
   return (
-    <div className="w-[83vw] min-h-screen p-4">
-      <div className="flex w-100 gap-4 mb-4 items-center">
+    <div className="w-screen sm:w-[83vw] min-h-screen p-4">
+      <div className="flex w-100 gap-4 mb-4 items-center flex-col sm:flex-row">
         <input
-          className="text-black w-5/12 rounded p-2 border border-gray-300"
+          className="text-black w-11/12 sm:w-5/12 rounded p-2 border border-gray-300"
           value={filterBy}
           onChange={(e) => setFilterBy(e.target.value)}
         />
         <Select
-          className="w-4/12"
+          className="w-11/12 sm:w-4/12"
           options={
             Array.from(departments).map((dept) => {
               return { label: dept, value: dept };
@@ -82,7 +82,7 @@ const EmployeeList = () => {
           onChange={(e) => setFilterDepartment(e as any)}
         />
         <Select
-          className="w-2/12"
+          className="w-11/12 sm:w-2/12"
           isMulti={true}
           options={
             [
@@ -96,7 +96,7 @@ const EmployeeList = () => {
           onChange={(e) => setFilterStatus(e as any)}
         />
 
-        <div className="w-1/12 flex justify-end">
+        <div className="w-11/12 sm:w-1/12 flex justify-center sm:justify-end">
           <button
             className="bg-red-700 text-white font-bold p-3 rounded"
             onClick={() => navigate("/employees/new")}

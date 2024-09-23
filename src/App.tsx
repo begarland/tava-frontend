@@ -3,7 +3,6 @@ import { BrowserRouter } from "react-router-dom";
 import Sidebar from "./components/Sidebar/Sidebar";
 import MainContent from "./components/MainContent/MainContent";
 import { Analytics } from "@vercel/analytics/react";
-import { SpeedInsights } from "@vercel/speed-insights/next";
 
 export const AppContext = React.createContext<{
   refreshEmployees: boolean;
@@ -31,7 +30,6 @@ export default function App() {
   return (
     <>
       <Analytics />
-      <SpeedInsights />
       <BrowserRouter>
         <AppContext.Provider
           value={{
@@ -42,14 +40,14 @@ export default function App() {
           }}
         >
           <div className="flex min-h-screen">
-            <div className="flex h-100 bg-white dark:bg-gray-950 w-1/6 dark:text-white">
+            <div className="h-100 bg-white dark:bg-gray-950 w-1/6 hidden sm:block dark:text-white">
               <Sidebar />
             </div>
-            <div className="flex w-5/6 bg-gray-100 dark:bg-gray-900 dark:text-white ">
+            <div className="flex w-screen sm:w-5/6 bg-gray-100 dark:bg-gray-900 dark:text-white overflow-scroll">
               <MainContent />
             </div>
             {error ? (
-              <div className="fixed right-3 top-3 w-96 h-32 bg-white dark:bg-gray-800 dark:text-white rounded p-3 border-2 border-white">
+              <div className="fixed right-3 top-3 w-11/12 sm:w-96 h-32 bg-white dark:bg-gray-800 dark:text-white rounded p-3 border-2 border-white">
                 <span
                   className="absolute right-0 top-0"
                   onClick={() => setError(null)}
