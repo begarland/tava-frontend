@@ -16,6 +16,8 @@ export const AppContext = React.createContext<{
   setError: () => null,
 });
 
+console.log(`${import.meta.env.VITE_BACKEND}`);
+
 export default function App() {
   const [refreshEmployees, setRefreshEmployees] = React.useState<boolean>(true);
   const [error, setError] = React.useState<string | null>(null);
