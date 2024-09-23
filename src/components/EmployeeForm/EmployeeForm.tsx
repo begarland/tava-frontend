@@ -21,7 +21,7 @@ const Required = () => (
 
 const inputStyle =
   "border border-1 border-gray-300 active:border-red-700 active:border-2 rounded text-base text-black";
-const labelStyle = "text-gray-700";
+const labelStyle = "text-gray-700 dark:text-gray-400";
 const DEPTS = ["Engineering", "Management", "Operations", "Food Services"];
 
 const EmployeeForm: React.FC<{ defaultValues?: Employee | undefined }> = ({
@@ -69,7 +69,7 @@ const EmployeeForm: React.FC<{ defaultValues?: Employee | undefined }> = ({
 
   return (
     <form onSubmit={handleSubmit(save)}>
-      <div className="flex flex-col gap-3 p-5 w-[500px] shadow-md bg-white rounded">
+      <div className="flex flex-col gap-3 p-5 w-[500px] shadow-md bg-white dark:bg-gray-950 rounded">
         <div className="flex flex-col">
           <label className={labelStyle}>First Name</label>
           <input
