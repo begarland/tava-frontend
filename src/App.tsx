@@ -2,6 +2,8 @@ import React from "react";
 import { BrowserRouter } from "react-router-dom";
 import Sidebar from "./components/Sidebar/Sidebar";
 import MainContent from "./components/MainContent/MainContent";
+import { Analytics } from "@vercel/analytics/react";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 export const AppContext = React.createContext<{
   refreshEmployees: boolean;
@@ -27,49 +29,53 @@ export default function App() {
   };
 
   return (
-    <BrowserRouter>
-      <AppContext.Provider
-        value={{
-          refreshEmployees,
-          setRefreshEmployees,
-          error,
-          setError: setErrorWithTimeout,
-        }}
-      >
-        <div className="flex min-h-screen">
-          <div className="flex h-100 bg-white dark:bg-gray-950 w-1/6 dark:text-white">
-            <Sidebar />
-          </div>
-          <div className="flex w-5/6 bg-gray-100 dark:bg-gray-900 dark:text-white ">
-            <MainContent />
-          </div>
-          {error ? (
-            <div className="fixed right-3 top-3 w-96 h-32 bg-white dark:bg-gray-800 dark:text-white rounded p-3 border-2 border-white">
-              <span
-                className="absolute right-0 top-0"
-                onClick={() => setError(null)}
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  strokeWidth={1.5}
-                  stroke="currentColor"
-                  className="size-6"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M6 18 18 6M6 6l12 12"
-                  />
-                </svg>
-                <span className="sr-only">Close</span>
-              </span>
-              <div className="mt-2 font-bold">{error}</div>
+    <>
+      <Analytics />
+      <SpeedInsights />
+      <BrowserRouter>
+        <AppContext.Provider
+          value={{
+            refreshEmployees,
+            setRefreshEmployees,
+            error,
+            setError: setErrorWithTimeout,
+          }}
+        >
+          <div className="flex min-h-screen">
+            <div className="flex h-100 bg-white dark:bg-gray-950 w-1/6 dark:text-white">
+              <Sidebar />
             </div>
-          ) : null}
-        </div>
-      </AppContext.Provider>
-    </BrowserRouter>
+            <div className="flex w-5/6 bg-gray-100 dark:bg-gray-900 dark:text-white ">
+              <MainContent />
+            </div>
+            {error ? (
+              <div className="fixed right-3 top-3 w-96 h-32 bg-white dark:bg-gray-800 dark:text-white rounded p-3 border-2 border-white">
+                <span
+                  className="absolute right-0 top-0"
+                  onClick={() => setError(null)}
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth={1.5}
+                    stroke="currentColor"
+                    className="size-6"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M6 18 18 6M6 6l12 12"
+                    />
+                  </svg>
+                  <span className="sr-only">Close</span>
+                </span>
+                <div className="mt-2 font-bold">{error}</div>
+              </div>
+            ) : null}
+          </div>
+        </AppContext.Provider>
+      </BrowserRouter>
+    </>
   );
 }
